@@ -2,18 +2,16 @@ import express from "express";
 import fetch from "node-fetch"; // se Node 18+ puoi usare fetch nativo
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000; // usa la porta di Railway
 
 app.use(express.json());
 
-// Endpoint per ricevere il testo della pagina
 app.post("/send", async (req, res) => {
   const { text } = req.body;
 
   if (!text) return res.status(400).json({ error: "Nessun testo ricevuto" });
 
   try {
-    // Invio a FreeGPT3
     const response = await fetch("https://api.freegptjs.com/chat/completions", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
